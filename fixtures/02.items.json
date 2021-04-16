@@ -1,0 +1,20 @@
+[
+  {
+    "model": "items",
+    "data": {
+      "name": "Clavier Logitech MX Keys",
+      "price": 10000,
+      "acquisitionDate": "2020-06-20",
+      "locationId": 3
+    }
+  },
+  {
+    "model": "items",
+    "data": {
+      "name": "Souris Logitech MX Master",
+      "price": 10000,
+      "acquisitionDate": "2020-06-20",
+      "locationId": 3
+    }
+  }
+]

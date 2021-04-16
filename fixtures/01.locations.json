@@ -1,0 +1,20 @@
+[
+  {
+    "model": "locations",
+    "data": {
+      "name":"Maison"
+    }
+  },
+  {
+    "model": "locations",
+    "data": {
+      "name":"Chambre"
+    }
+  },
+  {
+  "model": "locations",
+  "data": {
+    "name":"Bureau"
+  }
+}
+]

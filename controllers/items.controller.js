@@ -1,13 +1,34 @@
 const db = require("../models");
 const Item = db.items;
 const Op = db.Sequelize.Op;
-console.log(Item)
-// Create and Save a new Tutorial
-// exports.create = (req, res) => {
-//
-// };
 
-// Retrieve all items from the database.
+// Créer un nouvel objet
+exports.create = (req, res) => {
+    if (!req.body.name) {
+        res.status(400).send({
+            message: "Content can not be empty"
+        });
+        return;
+    }
+    const item = {
+        name: req.body.name,
+        price: req.body.price,
+        acquisitionDate: req.body.acquisitionDate,
+        locationId: req.body.locationId
+    };
+    Item.create(item)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating item"
+            });
+        });
+};
+
+// Récupérer tout les objets
 exports.findAll = (req, res) => {
 
     Item.findAll()
@@ -20,10 +41,9 @@ exports.findAll = (req, res) => {
                     err.message || "Some error occurred while retrieving items"
             });
         });
-
 };
 
-// Find a single item with an id
+// Récupération d'un objet par rapport à son id
 exports.findOne = (req, res) => {
     const id = req.params.id
     Item.findByPk(id)
@@ -39,22 +59,51 @@ exports.findOne = (req, res) => {
 
 };
 
-// // Update a Tutorial by the id in the request
-// exports.update = (req, res) => {
-//
-// };
-//
-// // Delete a Tutorial with the specified id in the request
-// exports.delete = (req, res) => {
-//
-// };
-//
-// // Delete all Tutorials from the database.
-// exports.deleteAll = (req, res) => {
-//
-// };
-//
-// // Find all published Tutorials
-// exports.findAllPublished = (req, res) => {
-//
-// };
+// Mise a jour d'un objet avec son id
+exports.update = (req, res) => {
+    const id = req.params.id
+
+    Item.update(req.body, {
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Item was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update item with id=${id}. Maybe item was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating item with id=" + id
+            });
+        });
+};
+
+// Supprimer un objet avec son id
+exports.delete = (req, res) => {
+    const id = req.params.id
+    Item.destroy({
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Item was deleted successfully"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete location with id=${id}. Maybe location was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete item with id=" + id
+            });
+        });
+};

@@ -5,5 +5,10 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+    Location.hasOne(Location,{
+        as:"parent",
+        onDelete:"cascade"
+    });
+
     return Location;
 };

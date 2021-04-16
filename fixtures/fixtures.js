@@ -7,4 +7,9 @@ db.sequelize.sync({force: true}).then(() => {
     sequelizeFixtures.loadFile(
         './fixtures/*.json'
         , db)
+        .then(() => {
+            console.log("Fixtures Loaded");
+            process.exit()
+        });
+
 });

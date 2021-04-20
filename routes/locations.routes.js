@@ -8,6 +8,8 @@ router.get("/", locations.findAll);
 
 router.get("/:id/children", locations.findAllChildren);
 
+router.get("/:id/items", locations.findAllItemsByLocation);
+
 router.get("/:id", locations.findOne)
 
 router.delete("/:id", locations.delete)

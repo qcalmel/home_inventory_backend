@@ -1,5 +1,6 @@
 const db = require("../models");
-const Item = db.items;
+const Item = db.Item;
+const Location = db.Location;
 const Op = db.Sequelize.Op;
 
 // Créer un nouvel objet
@@ -10,15 +11,15 @@ exports.create = (req, res) => {
         });
         return;
     }
-    const item = {
-        name: req.body.name,
-        price: req.body.price,
-        acquisitionDate: req.body.acquisitionDate,
-        locationId: req.body.locationId
-    };
-    Item.create(item)
+    const item = req.body;
+    Item.create(item,{
+        include: {
+            model : Location,
+            as : "location",
+        }
+    })
         .then(data => {
-            res.send(data);
+            res.status(201).send(data)
         })
         .catch(err => {
             res.status(500).send({

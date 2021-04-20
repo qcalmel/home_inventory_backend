@@ -1,5 +1,5 @@
 const db = require("../models");
-const Location = db.locations;
+const Location = db.Location;
 const Op = db.Sequelize.Op;
 
 // Création et ajout d'un nouvel emplacement
@@ -55,6 +55,24 @@ exports.findAllChildren = (req, res) => {
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving locations"
+            });
+        });
+
+};
+
+// Récupération de tout les enfants d'un emplacement
+exports.findAllItemsByLocation = (req, res) => {
+    const id = req.params.id
+    db.Item.findAll({
+        where: {locationId: id}
+    })
+        .then(data => {
+            res.send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving items"
             });
         });
 

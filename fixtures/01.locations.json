@@ -1,26 +1,26 @@
 [
   {
-    "model": "locations",
+    "model": "Location",
     "data": {
       "name": "Maison"
     }
   },
   {
-    "model": "locations",
+    "model": "Location",
     "data": {
       "name": "Chambre",
       "parentId": 1
     }
   },
   {
-    "model": "locations",
+    "model": "Location",
     "data": {
       "name": "Bureau",
       "parentId": 2
     }
   },
   {
-    "model": "locations",
+    "model": "Location",
     "data": {
       "name": "Meuble Tv",
       "parentId": 2

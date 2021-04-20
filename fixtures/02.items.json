@@ -1,6 +1,6 @@
 [
   {
-    "model": "items",
+    "model": "Item",
     "data": {
       "name": "Clavier Logitech MX Keys",
       "price": 10000,
@@ -9,7 +9,7 @@
     }
   },
   {
-    "model": "items",
+    "model": "Item",
     "data": {
       "name": "Souris Logitech MX Master",
       "price": 10000,

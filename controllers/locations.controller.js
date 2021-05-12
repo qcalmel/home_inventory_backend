@@ -60,6 +60,7 @@ exports.findAllChildren = (req, res) => {
 
 };
 
+
 // Récupération de tout les enfants d'un emplacement
 exports.findAllItemsByLocation = (req, res) => {
     const id = req.params.id

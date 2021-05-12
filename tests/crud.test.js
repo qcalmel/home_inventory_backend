@@ -3,7 +3,7 @@ const app = require('../app')
 const db = require('../models')
 
 describe('Post Endpoints', () => {
-    it('should create a new post', async () => {
+    it('should create a new item', async () => {
         const res = await request(app)
             .post('/api/items')
             .send({
@@ -14,7 +14,7 @@ describe('Post Endpoints', () => {
 });
 
 describe('Update Endpoints', () => {
-    it('should update a post', async () => {
+    it('should update an item', async () => {
         const res = await request(app)
             .put('/api/items/1')
             .send({
@@ -26,7 +26,7 @@ describe('Update Endpoints', () => {
 });
 
 describe('Delete Endpoints', () => {
-    it('should delete a post', async () => {
+    it('should delete a item', async () => {
         const res = await request(app)
             .delete('/api/items/1')
 

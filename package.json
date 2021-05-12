@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nodemon start",
     "db_load": "node ./fixtures/fixtures.js",
-    "migrate": "npx sequelize-cli db:migrate",
+    "migrate": "yarn sequelize db:migrate",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "pretest": "cross-env NODE_ENV=test yarn run migrate:reset"

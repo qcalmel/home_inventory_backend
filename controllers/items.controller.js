@@ -12,12 +12,7 @@ exports.create = (req, res) => {
         return;
     }
     const item = req.body;
-    Item.create(item,{
-        include: {
-            model : Location,
-            as : "location",
-        }
-    })
+    Item.create(item)
         .then(data => {
             res.status(201).send(data)
         })
@@ -59,11 +54,27 @@ exports.findOne = (req, res) => {
         })
 
 };
+const isSameNameAtLocation = async (itemName, newLocationId) => {
+    let sameName = false
+    console.log("test")
+    await Item.findAll({
+        where: {locationId: newLocationId, name: itemName}
+    })
+        .then((res) => {
+            console.log(res.length ? "ok" : "not ok")
+            res.length && (sameName = true)
+        })
+
+    return sameName
+}
 
 // Mise a jour d'un objet avec son id
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
     const id = req.params.id
-
+    if (await isSameNameAtLocation(req.body.name, req.body.locationId)) {
+        res.status(400).send({message: "L'emplacement sélectionné a deja un objet du meme nom"})
+        return
+    }
     Item.update(req.body, {
         where: {id: id}
     })
@@ -84,6 +95,23 @@ exports.update = (req, res) => {
             });
         });
 };
+
+exports.move = (req,res) => {
+    const itemsId = req.body.itemsId
+    Item.update({locationId: req.body.locationId,},{where:{id:itemsId}})
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Item was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update item with id=${itemsId}. Maybe item was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => console.log(err))
+}
 
 // Supprimer un objet avec son id
 exports.delete = (req, res) => {

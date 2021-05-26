@@ -9,6 +9,8 @@ router.get("/", items.findAll);
 
 router.get("/:id", items.findOne);
 
+router.put("/move",items.move)
+
 router.put("/:id", items.update);
 
 router.delete("/:id", items.delete);

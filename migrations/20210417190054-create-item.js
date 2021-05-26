@@ -11,6 +11,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      isLocation:{
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       price: {
         type: Sequelize.INTEGER
       },

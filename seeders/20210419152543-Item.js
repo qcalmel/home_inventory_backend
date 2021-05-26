@@ -21,14 +21,6 @@ module.exports = {
       },
       {
         id:3,
-        name : 'Bibliothèque',
-        price : 3900,
-        acquisitionDate: '2020-06-20',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id:4,
         name : 'Collection Berserk',
         price : 28000,
         acquisitionDate: '2020-06-20',
@@ -36,7 +28,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id:5,
+        id:4,
         name : 'Lit',
         price : 10000,
         acquisitionDate: '2020-06-20',
@@ -44,7 +36,7 @@ module.exports = {
         updatedAt: new Date(),
       },
     ])
-    await queryInterface.sequelize.query(`ALTER SEQUENCE "Items_id_seq" RESTART WITH 6`)
+    // await queryInterface.sequelize.query(`ALTER SEQUENCE "Items_id_seq" RESTART WITH 6`)
   },
 
   down: async (queryInterface, Sequelize) => await queryInterface.bulkDelete('Users',null,{})

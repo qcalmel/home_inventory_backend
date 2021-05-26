@@ -6,14 +6,6 @@ module.exports = {
       fields:['locationId'],
       type : 'foreign key',
       references:{
-        table:'Locations',
-        field :'id'
-      }
-    })
-    await queryInterface.addConstraint('Locations',{
-      fields:['itemId'],
-      type : 'foreign key',
-      references:{
         table:'Items',
         field :'id'
       }

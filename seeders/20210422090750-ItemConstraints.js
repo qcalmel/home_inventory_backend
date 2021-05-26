@@ -2,8 +2,9 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkUpdate("Items", {locationId: 3}, {id: [1,2,5]})
-        await queryInterface.bulkUpdate("Items", {locationId: 5}, {id: 4})
+        await queryInterface.bulkUpdate("Items", {locationId: 32}, {id: [1,2]})
+        await queryInterface.bulkUpdate("Items", {locationId: 34}, {id: 3})
+        await queryInterface.bulkUpdate("Items", {locationId: 31}, {id: 4})
 
         // await Sequelize.models.Item.bulkCreate([
         //     {id:1,locationId:3},

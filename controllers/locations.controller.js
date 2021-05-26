@@ -1,52 +1,36 @@
 const db = require("../models");
-const Location = db.Location;
+const Item = db.Item;
 const Op = db.Sequelize.Op;
 
 // Création et ajout d'un nouvel emplacement
-exports.create = (req, res) => {
-    if (!req.body.name) {
-        res.status(400).send({
-            message: "Content can not be empty"
-        });
-        return;
-    }
-    const item = {
-        name: req.body.name,
-        parentId: req.body.parentId
-    };
-    Location.create(item)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating location"
-            });
-        });
-};
+// exports.create = (req, res) => {
+//     if (!req.body.name) {
+//         res.status(400).send({
+//             message: "Content can not be empty"
+//         });
+//         return;
+//     }
+//     const item = {
+//         name: req.body.name,
+//         parentId: req.body.parentId
+//     };
+//     Location.create(item)
+//         .then(data => {
+//             res.send(data);
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message:
+//                     err.message || "Some error occurred while creating location"
+//             });
+//         });
+// };
 
 // Récupération de tout les emplacements
 exports.findAll = (req, res) => {
 
-    Location.findAll()
-        .then(data => {
-            res.send(data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving locations"
-            });
-        });
-
-};
-
-// Récupération de tout les enfants d'un emplacement
-exports.findAllChildren = (req, res) => {
-    const id = req.params.id
-    Location.findAll({
-        where: {parentId: id}
+    Item.findAll({
+        where:{isLocation:true}
     })
         .then(data => {
             res.send(data)
@@ -59,13 +43,30 @@ exports.findAllChildren = (req, res) => {
         });
 
 };
+exports.findAllRootLocations = (req, res) => {
 
 
-// Récupération de tout les enfants d'un emplacement
+    Item.findAll({
+        where:{isLocation:true,locationId:null}
+    })
+        .then(data => {
+            res.send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving locations"
+            });
+        });
+
+
+};
+// Récupération de tout les objets d'un emplacement
 exports.findAllItemsByLocation = (req, res) => {
     const id = req.params.id
-    db.Item.findAll({
-        where: {locationId: id}
+    Item.findAll({
+        where: {locationId: id},
+        order:[['isLocation','DESC']]
     })
         .then(data => {
             res.send(data)
@@ -73,9 +74,28 @@ exports.findAllItemsByLocation = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving items"
+                    err.message || "Some error occurred while retrieving locations"
             });
         });
+
+};
+
+exports.findAllChildrenLocation = (req, res) => {
+    const id = req.params.id
+    setTimeout(()=>{
+    Item.findAll({
+        where: {locationId: id, isLocation:true},
+    })
+        .then(data => {
+            res.send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving locations"
+            });
+        });
+    },300)
 
 };
 
